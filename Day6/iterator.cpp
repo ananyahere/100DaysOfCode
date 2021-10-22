@@ -24,5 +24,4 @@ int main(){
   for(itp = vectOfpair.begin(); itp!=vectOfpair.end(); ++itp){
     cout<<(itp->first)<<" "<<(itp->second)<<"\n";
   }
-
 }
