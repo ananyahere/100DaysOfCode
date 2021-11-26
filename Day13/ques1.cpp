@@ -1,9 +1,63 @@
-//Lucky numbers are subset of integers. Rather than going into much theory, let us see the process of arriving at lucky numbers,
-//Take the set of integers
-//1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19....
-//First, delete every second number, we get following reduced set.
-//1, 3, 5, 7, 9, 11, 13, 15, 17, 19,…………
-//Now, delete every third number, we get
-//1, 3, 7, 9, 13, 15, 19,….….
-//Continue this process indefinitely……
-//Any number that does NOT get deleted due to above process is called “lucky”.
+// reverse LL
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+  public: 
+    int data;
+    Node* next;
+};
+
+void print(Node* head){
+  Node* tmp = head;
+  while( tmp !=NULL){
+    cout<<tmp->data<<" ";
+    tmp = tmp->next;
+  }
+}
+
+void insert_at_begin(Node **head_ref, int item){
+  Node* new_node = new Node();
+  new_node ->data = item;
+  if(*head_ref == NULL){
+    //empty
+    new_node->next = NULL;
+    *head_ref = new_node;
+  }else{
+    //non-empty
+    Node* tmp = *head_ref;
+    while(tmp->next!=NULL){
+      tmp = tmp ->next;
+    }
+    tmp->next = new_node;
+  }
+}
+
+void reverse_LL(Node **head_ref){
+  Node* head = *head_ref;
+  Node* prev = NULL;
+  Node* tmp = head;
+  Node* frwd = NULL;
+  while(tmp != NULL){
+    //update frwd
+    frwd = tmp->next;
+
+    //change link
+    tmp->next = prev;
+
+    //update tmp & prev
+    prev = tmp;
+    tmp = frwd;
+  }
+  *head_ref = prev;
+}
+
+int main(){
+  Node* head = NULL;
+  int arr[5] = {1,2,3,4,5};
+  for(int i=0; i<5; i++){
+    insert_at_begin(&head, arr[i]);
+  }
+  reverse_LL(&head);
+  print(head);
+}
