@@ -41,10 +41,18 @@ void insert_at_end(Node **head_ref, int item){
 
 void reverse_dll(Node** head_ref){
   Node* tmp = *head_ref;
-  while(tmp->next!=NULL){
-    tmp = tmp->next;
+  Node* frwd = NULL;
+  Node* prevTmp = NULL;
+  while(tmp!=NULL){
+    frwd = tmp->next;
+    // changing links
+    tmp->next = prevTmp;
+    tmp->prev = frwd;
+    // update tmp & prev
+    prevTmp = tmp;
+    tmp = frwd;
   }
-  *head_ref = tmp;
+  *head_ref = prevTmp;
 }
 
 int main(){
